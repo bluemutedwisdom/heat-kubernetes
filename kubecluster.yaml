@@ -326,6 +326,12 @@ resources:
       group: ungrouped
       config: {get_file: fragments/disable-selinux.sh}
 
+  configure_ssh:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      group: ungrouped
+      config: {get_file: fragments/configure-ssh.sh}
+
   kube_master_init:
     type: OS::Heat::MultipartMime
     properties:
@@ -335,6 +341,7 @@ resources:
         - config: {get_resource: atomic_upgrade}
         - config: {get_resource: write_heat_params}
         - config: {get_resource: configure_etcd}
+        - config: {get_resource: configure_ssh}
         - config: {get_resource: kube_user}
         - config: {get_resource: configure_kubernetes}
         - config: {get_resource: enable_services}
