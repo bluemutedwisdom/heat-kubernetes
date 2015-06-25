@@ -126,7 +126,7 @@ parameters:
 
   scale_up_threshold:
     type: number
-    default: 70
+    default: 60
 
   scale_down_period_length:
     type: number
@@ -455,19 +455,19 @@ resources:
         - {get_attr: [scale_up_policy, alarm_url]}
       matching_metadata: {'metadata.user_metadata.stack': {get_param: "OS::stack_id"}}
       comparison_operator: gt
-  cpu_alarm_low:
-    type: OS::Ceilometer::Alarm
-    properties:
-      description: Scale-down if the average CPU < <scale_down_threshold>% for 10 minutes
-      meter_name: cpu_util
-      statistic: avg
-      period: {get_param: scale_down_period_length}
-      evaluation_periods: {get_param: scale_down_period_count}
-      threshold: {get_param: scale_down_threshold}
-      alarm_actions:
-        - {get_attr: [scale_down_policy, alarm_url]}
-      matching_metadata: {'metadata.user_metadata.stack': {get_param: "OS::stack_id"}}
-      comparison_operator: lt
+#  cpu_alarm_low:
+#    type: OS::Ceilometer::Alarm
+#    properties:
+#      description: Scale-down if the average CPU < <scale_down_threshold>% for 10 minutes
+#      meter_name: cpu_util
+#      statistic: avg
+#      period: {get_param: scale_down_period_length}
+#      evaluation_periods: {get_param: scale_down_period_count}
+#      threshold: {get_param: scale_down_threshold}
+#      alarm_actions:
+#        - {get_attr: [scale_down_policy, alarm_url]}
+#      matching_metadata: {'metadata.user_metadata.stack': {get_param: "OS::stack_id"}}
+#      comparison_operator: lt
 
 outputs:
 
